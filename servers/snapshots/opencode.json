@@ -1,0 +1,991 @@
+{
+  "name": "opencode",
+  "server_info": {
+    "name": "opencode-models",
+    "version": "0.1.0"
+  },
+  "protocol_version": "2025-06-18",
+  "tools": [
+    {
+      "name": "opencode_list_models",
+      "description": "List retrieved + indexed opencode models (searchable).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "free_only": {
+            "type": "boolean"
+          },
+          "refresh": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    {
+      "name": "opencode_chat",
+      "description": "Chat with any opencode model by ref.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string",
+            "description": "Ref like opencode-go/beam-free."
+          },
+          "messages": {
+            "type": "array"
+          },
+          "prompt": {
+            "type": "string"
+          },
+          "variant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "model"
+        ]
+      }
+    },
+    {
+      "name": "opencode_default_model",
+      "description": "Return the serve's default model ref.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "opencode_get_model",
+      "description": "Return one model's detail (cost/variants/limits).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "model": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "model"
+        ]
+      }
+    },
+    {
+      "name": "chat_opencode_go_beam_free",
+      "description": "Chat with Beam Free (opencode-go/beam-free) \u2014 free. Variants: low, medium, high, xhigh, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_claude_haiku_5_5",
+      "description": "Chat with Claude Haiku 5.5 (opencode-go/claude-haiku-5-5). Variants: none, low, medium, high, xhigh, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_crouton_alpha_free",
+      "description": "Chat with Crouton Alpha Free (opencode-go/crouton-alpha-free) \u2014 free. Variants: minimal, low, medium, high, xhigh, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_deepseek_v4_pro",
+      "description": "Chat with DeepSeek V4 Pro (opencode-go/deepseek-v4-pro). Variants: high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_deepseek_v4_1_flash",
+      "description": "Chat with DeepSeek V4.1 Flash (opencode-go/deepseek-v4.1-flash). Variants: low, high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_gemini_4_argon",
+      "description": "Chat with Gemini 4 Argon (opencode-go/gemini-4-argon). Variants: low, medium, high.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_glm_5_2",
+      "description": "Chat with GLM-5.2 (opencode-go/glm-5.2). Variants: high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_glm_5_3",
+      "description": "Chat with GLM-5.3 (opencode-go/glm-5.3). Variants: low, high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_glm_5_3_flash",
+      "description": "Chat with GLM-5.3-Flash (opencode-go/glm-5.3-flash). Variants: low, high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_gpt_5_6_luna",
+      "description": "Chat with GPT-5.6 Luna (opencode-go/gpt-5.6-luna). Variants: none, low, medium, high, xhigh, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_gpt_6_luna",
+      "description": "Chat with GPT-6 Luna (opencode-go/gpt-6-luna). Variants: none, low, medium, high, xhigh, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_grok_4_7",
+      "description": "Chat with Grok 4.7 (opencode-go/grok-4.7). Variants: low, medium, high, xhigh.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_hy3",
+      "description": "Chat with Hy3 (opencode-go/hy3). Variants: none, low, high.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_hy4",
+      "description": "Chat with Hy4 (opencode-go/hy4). Variants: none, high.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_hy4_preview",
+      "description": "Chat with Hy4 preview (opencode-go/hy4-preview). Variants: none, high.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_iceman_contributor_free",
+      "description": "Chat with Iceman Contributor Free (opencode-go/iceman-contributor-free) \u2014 free. Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_kimi_k2_7_code",
+      "description": "Chat with Kimi K2.7 Code (opencode-go/kimi-k2.7-code). Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_kimi_k3",
+      "description": "Chat with Kimi K3 (opencode-go/kimi-k3). Variants: max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_kimi_k3_1_pro",
+      "description": "Chat with Kimi K3.1 Pro (opencode-go/kimi-k3.1-pro). Variants: low, high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_longcat_2_0",
+      "description": "Chat with LongCat-2.0 (opencode-go/longcat-2.0). Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_mimo_v2_5",
+      "description": "Chat with MiMo V2.5 (opencode-go/mimo-v2.5). Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_mimo_v2_5_pro",
+      "description": "Chat with MiMo V2.5 Pro (opencode-go/mimo-v2.5-pro). Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_mimo_v2_6_flash",
+      "description": "Chat with MiMo-V2.6-Flash (opencode-go/mimo-v2.6-flash). Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_mimo_v2_6_pro",
+      "description": "Chat with MiMo-V2.6-Pro (opencode-go/mimo-v2.6-pro). Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_minimax_m3",
+      "description": "Chat with MiniMax-M3 (opencode-go/minimax-m3). Variants: none, thinking.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_minimax_m3_1_flash",
+      "description": "Chat with MiniMax M3.1 Flash (opencode-go/minimax-m3.1-flash). Variants: low, medium, high, xhigh, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_muse_spark_1_2_contributor",
+      "description": "Chat with Muse Spark 1.2 Contributor (opencode-go/muse-spark-1.2-contributor). Variants: minimal, low, medium, high, xhigh.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_muse_spark_1_3_contributor",
+      "description": "Chat with Muse Spark 1.3 Contributor (opencode-go/muse-spark-1.3-contributor). Variants: minimal, low, medium, high, xhigh.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_qwen3_7_plus",
+      "description": "Chat with Qwen3.7 Plus (opencode-go/qwen3.7-plus). Variants: none, high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_qwen3_8_flash",
+      "description": "Chat with Qwen3.8 Flash (opencode-go/qwen3.8-flash). Variants: none, low, medium, xhigh.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_qwen3_8_max",
+      "description": "Chat with Qwen3.8 Max (opencode-go/qwen3.8-max). Variants: none, low, medium, xhigh.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_go_step_5_preview",
+      "description": "Chat with Step 5 Preview (opencode-go/step-5-preview). Variants: low, medium, high.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_beam_free",
+      "description": "Chat with Beam Free (opencode/beam-free) \u2014 free. Variants: low, medium, high, xhigh, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_big_pickle",
+      "description": "Chat with Big Pickle (opencode/big-pickle) \u2014 free. Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_crouton_alpha_free",
+      "description": "Chat with Crouton Alpha Free (opencode/crouton-alpha-free) \u2014 free. Variants: minimal, low, medium, high, xhigh, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_deepseek_v4_1_flash_free",
+      "description": "Chat with DeepSeek V4.1 Flash Free (opencode/deepseek-v4.1-flash-free) \u2014 free. Variants: low, high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_flint_40b_free",
+      "description": "Chat with Flint 40B Free (opencode/flint-40b-free) \u2014 free. Variants: low, medium, high, xhigh, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_glm_5_3_flash_free",
+      "description": "Chat with GLM-5.3-Flash Free (opencode/glm-5.3-flash-free) \u2014 free. Variants: low, high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_iceman_free",
+      "description": "Chat with Iceman Free (opencode/iceman-free) \u2014 free. Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_inkling_2_small_free",
+      "description": "Chat with Inkling 2 Small Free (opencode/inkling-2-small-free) \u2014 free. Variants: none, minimal, low, medium, high, max.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_mimo_v2_6_flash_free",
+      "description": "Chat with MiMo-V2.6-Flash Free (opencode/mimo-v2.6-flash-free) \u2014 free. Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_nemotron_3_5_lightning_free",
+      "description": "Chat with Nemotron 3.5 Lightning Free (opencode/nemotron-3.5-lightning-free) \u2014 free. Variants: default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    },
+    {
+      "name": "chat_opencode_nemotron_3_5_super_vl_free",
+      "description": "Chat with Nemotron 3.5 Super VL Free (opencode/nemotron-3.5-super-vl-free) \u2014 free. Variants: none, minimal, low, medium, high, xhigh.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "description": "OpenAI-style [{role, content}] messages."
+          },
+          "prompt": {
+            "type": "string",
+            "description": "Single prompt (alternative to messages)."
+          },
+          "variant": {
+            "type": "string",
+            "description": "Model variant, e.g. low/medium/high."
+          }
+        }
+      }
+    }
+  ],
+  "sha256": "a6777a36a59ee6834031e2f4bfa645f8420e8b7bed7e3adf9695f9174e2c1e7e",
+  "counts": {
+    "tools": 47,
+    "bytes": 20026,
+    "o200k": 5006
+  }
+}
