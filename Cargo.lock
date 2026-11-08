@@ -1299,6 +1299,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "mock-opencode"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "mock-core",
+ "serde_json",
+ "tokio",
+ "tower",
+]
+
+[[package]]
 name = "mock-pagerduty"
 version = "0.1.0"
 dependencies = [
@@ -2805,6 +2816,7 @@ dependencies = [
  "mock-mongodb",
  "mock-notion",
  "mock-okta",
+ "mock-opencode",
  "mock-pagerduty",
  "mock-salesforce",
  "mock-sentry",
