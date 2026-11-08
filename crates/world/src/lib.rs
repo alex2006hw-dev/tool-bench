@@ -52,6 +52,7 @@ pub fn services() -> Vec<Box<dyn MockService>> {
         Box::new(mock_mongodb::Mongodb),
         Box::new(mock_notion::Notion),
         Box::new(mock_okta::Okta),
+        Box::new(mock_opencode::Opencode),
         Box::new(mock_pagerduty::Pagerduty),
         Box::new(mock_salesforce::Salesforce),
         Box::new(mock_sentry::Sentry),

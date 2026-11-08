@@ -29,6 +29,7 @@ mock-linear.workspace = true
 mock-mongodb.workspace = true
 mock-notion.workspace = true
 mock-okta.workspace = true
+mock-opencode.workspace = true
 mock-pagerduty.workspace = true
 mock-salesforce.workspace = true
 mock-sentry.workspace = true

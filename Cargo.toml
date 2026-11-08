@@ -21,6 +21,7 @@ members = [
     "crates/services/mongodb",
     "crates/services/notion",
     "crates/services/okta",
+    "crates/services/opencode",
     "crates/services/pagerduty",
     "crates/services/salesforce",
     "crates/services/sentry",
@@ -84,6 +85,7 @@ mock-linear = { path = "crates/services/linear" }
 mock-mongodb = { path = "crates/services/mongodb" }
 mock-notion = { path = "crates/services/notion" }
 mock-okta = { path = "crates/services/okta" }
+mock-opencode = { path = "crates/services/opencode" }
 mock-pagerduty = { path = "crates/services/pagerduty" }
 mock-salesforce = { path = "crates/services/salesforce" }
 mock-sentry = { path = "crates/services/sentry" }
